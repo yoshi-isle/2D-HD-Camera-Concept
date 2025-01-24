@@ -16,6 +16,6 @@ public static class CameraDirectionHelper
         {90, Direction.WEST},
         {180, Direction.NORTH},
         {270, Direction.EAST},
-        {360, Direction.EAST},
+        {360, Direction.SOUTH},
     };
 }
