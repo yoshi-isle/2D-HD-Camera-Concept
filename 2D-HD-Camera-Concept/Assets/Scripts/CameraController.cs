@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -22,6 +23,12 @@ public class CameraController : MonoBehaviour
     public float maxVerticalOffset = 10f;
     public float minVerticalOffset = -5f;
     public float lookUpAmount=1f;
+
+    public delegate void RotationEventHandler(CameraDirectionHelper.Direction angle);
+    public event RotationEventHandler OnRotation90Degrees;
+
+    private float lastRotationAngle = 0f;
+    private const float ROTATION_THRESHOLD = 90f;
 
     void Update()
     {
@@ -50,6 +57,16 @@ public class CameraController : MonoBehaviour
         //Set panning values to camera
         transform.RotateAround(target.position, Vector3.up, rotateInputX);
         transform.RotateAround(target.position, transform.right, -rotateInputY);
-    }
 
+        // Check for 90-degree rotations
+        float currentAngle = transform.eulerAngles.y;
+        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(lastRotationAngle, currentAngle));
+        
+        if (deltaAngle >= ROTATION_THRESHOLD)
+        {
+            float snappedAngle = Mathf.Round(currentAngle / ROTATION_THRESHOLD) * ROTATION_THRESHOLD;
+            OnRotation90Degrees?.Invoke(CameraDirectionHelper.directionIndex[snappedAngle]);
+            lastRotationAngle = snappedAngle;
+        }
+    }
 }

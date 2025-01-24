@@ -1,14 +1,12 @@
 using System;
 using UnityEngine;
 
-public class PlayerGraphics : MonoBehaviour
+public class TransformHelper : MonoBehaviour
 {
     CameraController cameraController;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite northSprite;
-    [SerializeField] private Sprite southSprite;
-    [SerializeField] private Sprite eastSprite;
-    [SerializeField] private Sprite westSprite;
+    [SerializeField] private Transform transform;
+    [SerializeField] private float lookUpPercentage;
+
 
     void Start()
     {
@@ -21,16 +19,16 @@ public class PlayerGraphics : MonoBehaviour
         switch (direction)
         {
             case CameraDirectionHelper.Direction.NORTH:
-                spriteRenderer.sprite = northSprite;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
             case CameraDirectionHelper.Direction.SOUTH:
-                spriteRenderer.sprite = southSprite;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
             case CameraDirectionHelper.Direction.EAST:
-                spriteRenderer.sprite = eastSprite;
+                transform.rotation = Quaternion.Euler(0, 90, 0);
                 break;
             case CameraDirectionHelper.Direction.WEST:
-                spriteRenderer.sprite = westSprite;
+                transform.rotation = Quaternion.Euler(0, 270, 0);
                 break;
         }
     }
