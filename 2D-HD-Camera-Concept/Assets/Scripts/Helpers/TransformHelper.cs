@@ -14,6 +14,16 @@ public class TransformHelper : MonoBehaviour
         cameraController.OnRotation90Degrees += HandleCameraRotation;
     }
 
+    // void Update()
+    // {
+    //     Vector3 targetDirection = cameraController.transform.position - transform.position;
+    //     targetDirection.y = targetDirection.y * lookUpPercentage;
+    //     if (targetDirection != Vector3.zero)
+    //     {
+    //         transform.rotation = Quaternion.LookRotation(targetDirection);
+    //     }
+    // }
+
     private void HandleCameraRotation(CameraDirectionHelper.Direction direction)
     {
         switch (direction)
